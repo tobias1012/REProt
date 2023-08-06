@@ -55,13 +55,11 @@
 
 <style>
     .sidebar {
-        position: absolute;
         contain: content;
         right: 0;
         scrollbar-width: none;
-        top: 100px;
-        width: 320px;
-        overflow-x: hidden;
+        
+        overflow-x: auto;
         overflow-y: auto;
     }
 </style>

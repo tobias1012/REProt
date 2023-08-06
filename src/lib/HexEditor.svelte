@@ -34,7 +34,7 @@
 
 </script>
 
-<div class = "hexedit">
+<!--<div class = "hexedit">
     <h1>HexEditor</h1>
     <div class = "offset notranslate">
         {#each {length: Math.ceil(data.length / ROW_LENGTH)} as _, index}
@@ -56,9 +56,92 @@
     </div>
 
 
+</div>-->
+
+<div class="editor">
+    <div class="offset">
+        {#each {length: Math.ceil(data.length / ROW_LENGTH)} as _, index}
+            <span>{(index * 10).toString().padStart(4, "0")}</span>    
+        {/each}
+     </div>
+
+    <div class="data">
+        {#each data as num, index}
+            <span data-index={index}>{num.toString(16).padStart(2,'0')}</span>
+        {/each}
+    </div>
+    
+    <div class="text">
+        {#each data as current, index}
+            <span data-index={index}>{printable(current)}</span>    
+        {/each}
+    </div>
 </div>
 
 <style>
+    .editor {
+        display: grid; 
+        grid-template-columns: min-content min-content min-content; 
+        grid-template-rows: 100%; 
+        gap: 0px 0px; 
+        grid-template-areas: 
+            "offset data text"; 
+        font-size: 20pt;
+    }
+
+    .offset, .data, .text {
+        font-family: "Source Code Pro", "HexEd.it Symbols", "Courier New", Consolas, Menlo, "PT Mono", "Liberation Mono", monospace;
+
+        contain: content;
+        display: inline-block;
+        height: 100%;
+        overflow: hidden;
+        vertical-align: top;
+        direction: ltr;
+    }
+
+
+
+    .offset {
+        grid-area: offset;
+        justify-content: space-around;
+        display: inline-block;
+        padding-right: 5px;
+        padding-left: 5px;
+        margin-right: 5px;
+        text-align: right;
+        background-color: #adadad;
+    }
+
+    .data {
+        grid-area: data;
+        color: #333;
+        margin-right: 10px;
+    }
+
+    .data span {
+        padding: 1px 1px 4px 5px;
+    }
+
+    .data span:nth-child(2n) {
+        color: #545454;
+    }
+
+    .text {
+        grid-area: text;
+    }
+
+
+    .text > span:nth-child(16n)::after, .data span:nth-child(16n)::after,  .offset span::after{
+        content: "\a";
+        white-space: pre;
+    }
+
+
+
+
+
+    /*
     :global(.selected) {
         background-color: aqua;
     }
@@ -70,7 +153,7 @@
         -moz-user-select: none;
         -ms-user-select: none;
         -webkit-user-select: none;
-    }
+    }s
 
     .hexedit {
         white-space: nowrap;
@@ -135,7 +218,7 @@
         border-right: 0;
     }
 
-    /*TEXT FORMATTING*/
+    
     .hexedit .text {
         padding: 0 5px;
     }
@@ -146,6 +229,6 @@
 
     .hexedit .text > span:nth-child(16n)::after {
         content: "\a";
-    }
+    }*/
 
 </style>

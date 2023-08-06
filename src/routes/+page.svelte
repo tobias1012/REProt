@@ -7,18 +7,34 @@
     $: console.log(selection)
 </script>
 
-<Toolbar />
-<div class = "inline">
-    <div class = "stacked">
-        <HexEditor data={hexdata} bind:selection={selection}/>
-        <h1>Reversed Protocol</h1>
-    </div>
-    <DataInspector selection={selection}/>
-</div>
+<div class="container">
+    <div class="Top"><Toolbar /></div>
+    <div class="HEX"> <HexEditor data={hexdata} bind:selection={selection} /> </div>
+    <div class="Data"><DataInspector selection={selection} /></div>
+  </div>
 
 <style>
-    .inline {
-        display: inline-block;
+    :global(body) {
+        margin: 0;
     }
+
+
+    .container {  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 0.5fr 5fr 5.8fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  justify-content: space-around;
+  grid-template-areas:
+    "menubar menubar menubar"
+    "HEX HEX Data"
+    "PROT PROT Data"
+}
+
+    .Top { grid-area: menubar; background-color: aqua; }
+
+    .HEX { grid-area: HEX; background-color: red;}
+
+    .Data { grid-area: Data; background-color: brown; }
 
 </style>

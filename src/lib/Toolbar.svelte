@@ -1,9 +1,18 @@
 <script lang="ts">
+	import BpfInput from "./BPFInput.svelte";
+
 
 </script>
 
 <div class="toolbar">
-    
+    <div class="buttons">
+        <button>Choose DataSource</button>
+        <button>Start/Pause Live Mode</button>
+        <button>Previous Packet</button>
+        <button>Next Packet</button>
+        <button>Export</button>
+    </div>
+    <BpfInput />
 </div>
 
 

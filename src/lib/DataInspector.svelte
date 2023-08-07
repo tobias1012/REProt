@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { printable } from "./helper";
     export let selection: string[] = [];
     let endianness: String;
     let data = selection;
@@ -47,8 +48,9 @@
         <option value="big">Big-Endian</option>
     </select>
     {#key data}
-        <h1>Integer: {parseInt(data.join(''), 16)}</h1>
-        <h1>Float: {parseFloat(data.join(''))}</h1>
+        <p class="datatype">Integer: {parseInt(data.join(''), 16)}</p>
+        <p class="datatype">Float: {parseFloat(data.join(''))}</p>
+        <p class="datatype">String: {data.map((x) => {return printable(parseInt(x,16));}).join('')}</p>
     {/key}
 </div>
 
@@ -61,5 +63,10 @@
         
         overflow-x: auto;
         overflow-y: auto;
+    }
+
+    .datatype {
+        font-size: 3vh;
+        font-weight: bold;
     }
 </style>

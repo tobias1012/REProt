@@ -1,64 +1,43 @@
 <script lang="ts">
+    import { printable } from "./helper";
     export let data: number[];
     export let selection: String[] = [];
     //CONFIG
     const ROW_LENGTH = 0x10;
 
 
-    function printable(num: number){
-        if (num < 32 || num > 127) {
-            return ".";
-        }
-        return String.fromCharCode(num);
-    }
-
+    
+    let first, last = 0;
+    let reset = true;
     function handleSelection(e: any) {
         
         if(e.buttons == 1){
+            //check if this is a new selection, if so reset the selection
+            if(reset) {
+                selection = [];
+                reset = false;
+            }
             console.log(e)
+            //data index first?
+            if(false) {
+
+            }
+
+            //data index last?
+            
             selection.push(e.fromElement.firstChild.data);
             e.fromElement.classList.add("selected");
             selection = selection;
+        } else if(reset == false){
+            //if mouse is no longer clicked we should reset the next time it is
+            reset = true;
         }
     }
-    function clearSelection() {
-        //if(selection.length == 1)
-        //{return;}
-        const elements = document.querySelectorAll('*');
-
-        elements.forEach((element) => {
-        element.classList.remove('selected');
-        });
-        selection = [];
-    }
+    
 
 </script>
 
-<!--<div class = "hexedit">
-    <h1>HexEditor</h1>
-    <div class = "offset notranslate">
-        {#each {length: Math.ceil(data.length / ROW_LENGTH)} as _, index}
-            <div>{(index * 10).toString().padStart(4, "0")}</div>    
-        {/each}    
-    </div>
-
-    <div class = "hex notranslate">
-        {#each data as num, index}
-            <span data-index={index} on:mousedown={clearSelection} on:mouseover={handleSelection} on:focus={null} role="contentinfo">
-                {num.toString(16).padStart(2,'0')}
-            </span>    
-        {/each}
-    </div>
-    <div class="text notranslate">
-        {#each data as current, index}
-            <span data-index={index}>{printable(current)}</span>    
-        {/each}
-    </div>
-
-
-</div>-->
-
-<div class="editor">
+<div class="editor" on:mouseover={(x) => handleSelection(x)}>
     <div class="offset">
         {#each {length: Math.ceil(data.length / ROW_LENGTH)} as _, index}
             <span>{(index * 10).toString().padStart(4, "0")}</span>    
@@ -67,7 +46,7 @@
 
     <div class="data">
         {#each data as num, index}
-            <span data-index={index}>{num.toString(16).padStart(2,'0')}</span>
+            <span data-index={index} >{num.toString(16).padStart(2,'0')}</span>
         {/each}
     </div>
     
@@ -86,7 +65,8 @@
         gap: 0px 0px; 
         grid-template-areas: 
             "offset data text"; 
-        font-size: 20pt;
+        font-size: 1.5vw;
+        background-color: azure;
     }
 
     .offset, .data, .text {
@@ -98,6 +78,10 @@
         overflow: hidden;
         vertical-align: top;
         direction: ltr;
+        user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
     }
 
 

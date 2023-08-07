@@ -1,12 +1,28 @@
 <script lang="ts">
 	import BpfInput from "./BPFInput.svelte";
+    import { WebviewWindow } from '@tauri-apps/api/window'
 
+
+
+    function datasource() {
+        const web = new WebviewWindow("DataSource", {
+            url: '/datasource'
+        })
+
+        web.once('tauri://created', function () {
+        // webview window successfully created
+        })
+        web.once('tauri://error', function (e: any) {
+        // an error occurred during webview window creation
+        console.log(e);
+        })
+        }
 
 </script>
 
 <div class="toolbar">
     <div class="buttons">
-        <button>Choose DataSource</button>
+        <button on:click={(x) => datasource()}>Choose DataSource</button>
         <button>Start/Pause Live Mode</button>
         <button>Previous Packet</button>
         <button>Next Packet</button>
@@ -21,7 +37,7 @@
         contain: strict;
         position: relative;
         width: 100%;
-        height: 68px;
+        height: 100%;
         padding: 0;
         padding-left: 8px;
         overflow: hidden;

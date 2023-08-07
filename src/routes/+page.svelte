@@ -1,4 +1,5 @@
 <script lang="ts">
+    import ContextMenu from "$lib/ContextMenu.svelte";
     import DataInspector from "$lib/DataInspector.svelte";
     import HexEditor from "$lib/HexEditor.svelte";
 	import Toolbar from "$lib/Toolbar.svelte";
@@ -7,9 +8,11 @@
     $: console.log(selection)
 </script>
 
+<ContextMenu />
 <div class="container">
     <div class="Top"><Toolbar /></div>
-    <div class="HEX"> <HexEditor data={hexdata} bind:selection={selection} /> </div>
+    <div class="HEX"><HexEditor data={hexdata} bind:selection={selection} /></div>
+    <div class="PROT"><h1>Reversed Packet</h1></div>
     <div class="Data"><DataInspector selection={selection} /></div>
   </div>
 
@@ -21,7 +24,7 @@
 
     .container {  display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 0.5fr 5fr 5.8fr;
+  grid-template-rows: 8vh 47vh 45vh;
   gap: 0px 0px;
   grid-auto-flow: row;
   justify-content: space-around;
@@ -33,8 +36,10 @@
 
     .Top { grid-area: menubar; background-color: aqua; }
 
-    .HEX { grid-area: HEX; background-color: red;}
+    .HEX { grid-area: HEX; background-color: azure;}
 
-    .Data { grid-area: Data; background-color: brown; }
+    .PROT { grid-area: PROT; background-color: azure;}
+
+    .Data { grid-area: Data; background-color: #adadad; }
 
 </style>
